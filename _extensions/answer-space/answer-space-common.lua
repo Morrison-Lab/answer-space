@@ -5,12 +5,19 @@ local M = {}
 
 local UNITS = { ["in"] = true, cm = true, mm = true, pt = true, em = true, ex = true, bp = true }
 
--- The space used when `answer-space: true` names no length.
+-- The space used when `answer-space` is `true` or missing.
 M.DEFAULT = "2in"
 
 -- Return a checked value, or stop the render: a typo must not produce a
 -- PDF that silently has no room to write.
+-- `true` means the default space and `false` means none, as in metadata.
 function M.check(value, where)
+  if value == "true" then
+    return M.DEFAULT
+  end
+  if value == "false" then
+    return "0"
+  end
   if value == "page" or value == "0" then
     return value
   end
@@ -26,18 +33,16 @@ function M.check(value, where)
 end
 
 -- Read the `answer-space` metadata key.
--- Returns enabled (boolean) and the default space (string or nil).
+-- Returns enabled (boolean) and the default space (string).
+-- A missing key means `true`.
 function M.read(meta)
   local raw = meta["answer-space"]
   if raw == nil then
-    return true, nil
+    return true, M.DEFAULT
   end
   local value = pandoc.utils.stringify(raw)
   if value == "false" then
     return false, nil
-  end
-  if value == "true" then
-    return true, M.DEFAULT
   end
   return true, M.check(value, "the answer-space metadata value")
 end

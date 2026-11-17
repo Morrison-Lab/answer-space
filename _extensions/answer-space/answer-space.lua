@@ -12,9 +12,9 @@ Set it in document or project metadata:
   answer-space: page     # start the next exercise on a new page
   answer-space: false    # no space at all (for example, in a solution profile)
 
-With no `answer-space` key it adds nothing, unless a div asks for space:
-an `answer-space="3in"` attribute on an exercise div sets that exercise's
-space, and `answer-space="0"` gives it none.
+A missing `answer-space` key means `true`.
+An `answer-space="3in"` attribute on an exercise div sets that exercise's
+space; the attribute takes the same values, and `"0"` also means none.
 `answer-space: false` overrides every attribute.
 
 A value that is not a TeX length, `page`, `true` or `false` stops the render.
@@ -25,7 +25,7 @@ local common = dofile(pandoc.path.join({
 }))
 
 local enabled = true
-local default_space = nil
+local default_space = common.DEFAULT
 
 local function add_space(div)
   if not enabled or not quarto.doc.is_format("latex") then

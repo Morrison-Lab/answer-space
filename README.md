@@ -45,7 +45,9 @@ Prove that ...
 :::
 ```
 
-`answer-space="0"` gives that exercise no space, and `answer-space="page"` a new page.
+The attribute takes the same values as the metadata key.
+`answer-space="0"` or `"false"` gives that exercise no space, and `answer-space="page"` a new page.
+`answer-space: false` in metadata overrides every attribute.
 
 ### Between the parts of one exercise
 
@@ -65,3 +67,5 @@ because Quarto turns exercise divs into its own theorem nodes before the default
 where a filter would never see an `exr-` div.
 
 See [`example.qmd`](example.qmd) for a demonstration.
+It names the filter as `answer-space`, because it uses this repository's own `_extensions/answer-space/` copy;
+a document in another repository names it `Morrison-Lab/answer-space`.
