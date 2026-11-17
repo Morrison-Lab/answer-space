@@ -1,0 +1,26 @@
+---
+title: "answer-space example"
+format:
+  pdf: default
+  html: default
+filters:
+  - answer-space
+# Space left after every exercise in PDF output.
+answer-space: 1.5in
+---
+
+::: {#exr-first}
+Compute $2 + 2$.
+
+{{< answer-space 0.75in >}}
+
+Then explain your method.
+:::
+
+::: {#exr-page answer-space="page"}
+This exercise gets a whole page.
+:::
+
+::: {#exr-none answer-space="0"}
+This exercise gets no space.
+:::
