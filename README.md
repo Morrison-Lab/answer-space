@@ -35,6 +35,24 @@ A missing `answer-space` key means `true`.
 A value that is none of these stops the render with an error,
 rather than producing a PDF with no room to write.
 
+### Student copy and answer key
+
+Quarto lets a document's front matter, and a directory's `_metadata.yml`, override the project's profile files.
+So an `answer-space` key set there also reaches the answer key,
+even when `_quarto-solution.yml` sets `answer-space: false`.
+Two layouts avoid that:
+
+- Set the key only in project and profile files:
+  `answer-space: false` in `_quarto.yml` or the solution profile,
+  and the size (or `"0"`, for attributes only) in the student profile.
+- If only some documents get space, set the size in their front matter,
+  and list the filter only in the student profile's `filters`,
+  so the answer-key render never runs it.
+
+Avoid naming the filter in a document that is also rendered on its own,
+outside the project, such as a generated student `.qmd`:
+there the extension cannot be found and the render stops.
+
 ### One exercise
 
 An `answer-space` attribute on an exercise overrides the default for it:
